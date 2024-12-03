@@ -11,8 +11,8 @@ public class BurgerMenuTests extends BaseTests {
 
     @BeforeMethod
     public void setUp() {
-        Logs.debug("Esperando que cargue la pagina");
-        sleep(1000);
+//        Logs.debug("Esperando que cargue la pagina");
+//        sleep(1000);
 
         Logs.info("Escribiendo en el username input");
         driver.findElement(AppiumBy.accessibilityId("test-Username")).sendKeys("standard_user");
@@ -23,8 +23,8 @@ public class BurgerMenuTests extends BaseTests {
         Logs.info("Haciendo click en el boton de login");
         driver.findElement(AppiumBy.accessibilityId("test-LOGIN")).click();
 
-        Logs.info("Espero que cargue la pagina de Shopping");
-        sleep(2000);
+//        Logs.info("Espero que cargue la pagina de Shopping");
+//        sleep(2000);
 
         Logs.info("Haciendo click en el burger menu para abrirlo");
         driver.findElement(AppiumBy.accessibilityId("test-Menu")).click();
@@ -33,25 +33,25 @@ public class BurgerMenuTests extends BaseTests {
         sleep(1000);
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void logoutTest() {
         Logs.info("Haciendo click en el boton de logout");
         driver.findElement(AppiumBy.accessibilityId("test-LOGOUT")).click();
 
-        Logs.info("Espero que redirija a la pagina de Login");
-        sleep(1500);
+//        Logs.info("Espero que redirija a la pagina de Login");
+//        sleep(1500);
 
         Logs.info("Verifico que estoy en la pagina de Login");
         Assert.assertTrue(driver.findElement(AppiumBy.accessibilityId("test-Username")).isDisplayed());
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void closeXTest() {
         Logs.info("Haciendo click en el boton de la X");
         driver.findElement(AppiumBy.accessibilityId("test-Close")).click();
 
-        Logs.info("Espero que redirija a la pagina de shopping");
-        sleep(1500);
+//        Logs.info("Espero que redirija a la pagina de shopping");
+//        sleep(1500);
 
         Logs.info("Verifico que estoy en la pagina de Shoppin");
         Assert.assertTrue(driver.findElement(AppiumBy.androidUIAutomator("text(\"PRODUCTS\")"))

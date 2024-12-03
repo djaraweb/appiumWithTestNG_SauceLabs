@@ -13,8 +13,8 @@ public class ItemDetailTests extends BaseTests {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        Logs.debug("Esperando que cargue la pagina");
-        sleep(1000);
+//        Logs.debug("Esperando que cargue la pagina");
+//        sleep(1000);
 
         Logs.info("Escribiendo en el username input");
         driver.findElement(AppiumBy.accessibilityId("test-Username")).sendKeys("standard_user");
@@ -25,18 +25,18 @@ public class ItemDetailTests extends BaseTests {
         Logs.info("Haciendo click en el boton de login");
         driver.findElement(AppiumBy.accessibilityId("test-LOGIN")).click();
 
-        Logs.info("Espero que cargue la pagina de Shopping");
-        sleep(2000);
+//        Logs.info("Espero que cargue la pagina de Shopping");
+//        sleep(2000);
 
         Logs.info("Hago click en la 1era imagen");
         driver.findElements(AppiumBy.androidUIAutomator("description(\"test-Item\").childSelector(className(\"android.widget.ImageView\"))")).get(0).click();
 
-        Logs.info("Espero que cargue el detalle del item");
-        sleep(1000);
+//        Logs.info("Espero que cargue el detalle del item");
+//        sleep(1000);
 
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void verifyItemTest() {
         Logs.info("Verificando la pagina de item details");
         final var backProductsButton = driver.findElement(AppiumBy.accessibilityId("test-BACK TO PRODUCTS"));
@@ -57,25 +57,25 @@ public class ItemDetailTests extends BaseTests {
 
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void backToProductsTest() {
         Logs.info("Hacer click en back to products");
         driver.findElement(AppiumBy.accessibilityId("test-BACK TO PRODUCTS")).click();
 
-        Logs.info("Espero que cargue la pagina");
-        sleep(1000);
+//        Logs.info("Espero que cargue la pagina");
+//        sleep(1000);
 
         Logs.info("Verifico que estoy en la pagina de shopping");
         Assert.assertTrue(driver.findElement(AppiumBy.androidUIAutomator("text(\"PRODUCTS\")")).isDisplayed());
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void pressBackTest() {
         Logs.info("Presionar el boton atras del celular");
         driver.pressKey(new KeyEvent(AndroidKey.BACK));
 
-        Logs.info("Espero que cargue la pagina");
-        sleep(1000);
+//        Logs.info("Espero que cargue la pagina");
+//        sleep(1000);
 
         Logs.info("Verifico que estoy en la pagina de shopping");
         Assert.assertTrue(driver.findElement(AppiumBy.androidUIAutomator("text(\"PRODUCTS\")")).isDisplayed());

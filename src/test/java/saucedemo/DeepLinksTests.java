@@ -12,19 +12,19 @@ import utilities.Logs;
 
 public class DeepLinksTests extends BaseTests {
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void completeCheckoutTest() {
         Logs.info("Voy a la pagina de complete con el checkout usando el deeplink");
         driver.get("swaglabs://complete");
 
-        Logs.info("Espero que cargue la pagina de complete Checkout");
-        sleep(1500);
+//        Logs.info("Espero que cargue la pagina de complete Checkout");
+//        sleep(1500);
 
         Logs.info("Click en el boton Back Home");
         driver.findElement(AppiumBy.accessibilityId("test-BACK HOME")).click();
 
-        Logs.info("Espero que cargue la pagina de shopping");
-        sleep(1500);
+//        Logs.info("Espero que cargue la pagina de shopping");
+//        sleep(1500);
 
         Logs.info("verificamos que cargue la pagina de shopping");
         Assert.assertTrue(
@@ -32,13 +32,13 @@ public class DeepLinksTests extends BaseTests {
         );
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void itemNumero4Test() {
         Logs.info("Navegamos al detalle del item 4 usando deeplink");
         driver.get("swaglabs://swag-item/4");
 
-        Logs.info("Espero que cargue la pagina del detalle del producto");
-        sleep(1500);
+//        Logs.info("Espero que cargue la pagina del detalle del producto");
+//        sleep(1500);
 
         Logs.info("Verifico que el nombre del item sea Sauce Labs Onesie");
         final var infoList = driver.findElements(AppiumBy.xpath("//android.view.ViewGroup[@content-desc=\"test-Description\"]//android.widget.TextView"));
@@ -48,13 +48,13 @@ public class DeepLinksTests extends BaseTests {
         );
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void webViewTest() {
         Logs.info("Navego a la pagina de webview usando deeplink");
         driver.get("swaglabs://webview");
 
-        Logs.info("Espero que cargue la pagina");
-        sleep(1500);
+//        Logs.info("Espero que cargue la pagina");
+//        sleep(1500);
 
         Logs.info("Escribo la pagina a navegar");
         driver.findElement(AppiumBy.accessibilityId("test-enter a https url here..."))
@@ -63,8 +63,8 @@ public class DeepLinksTests extends BaseTests {
         Logs.info("Hago click eb el boton GO TO SITE");
         driver.findElement(AppiumBy.accessibilityId("test-GO TO SITE")).click();
 
-        Logs.info("Espero que cargue la pagina web");
-        sleep(1500);
+//        Logs.info("Espero que cargue la pagina web");
+//        sleep(1500);
 
         Logs.info("Cambiando de contexto a webview");
         ContextUtilities.switchWebContext();
@@ -80,8 +80,8 @@ public class DeepLinksTests extends BaseTests {
         Logs.info("Presionar el boton atras del celular");
         driver.pressKey(new KeyEvent(AndroidKey.BACK));
 
-        Logs.info("Espero que cargue la pagina");
-        sleep(1000);
+//        Logs.info("Espero que cargue la pagina");
+//        sleep(1000);
 
         Logs.info("verifico que haya regresado a la pagina de naviteweb");
         Assert.assertTrue(

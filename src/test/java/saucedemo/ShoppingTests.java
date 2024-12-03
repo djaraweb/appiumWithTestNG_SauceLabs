@@ -10,8 +10,8 @@ public class ShoppingTests extends BaseTests {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        Logs.debug("Esperando que cargue la pagina");
-        sleep(1000);
+//        Logs.debug("Esperando que cargue la pagina");
+//        sleep(1000);
 
         Logs.info("Escribiendo en el username input");
         driver.findElement(AppiumBy.accessibilityId("test-Username")).sendKeys("standard_user");
@@ -22,11 +22,11 @@ public class ShoppingTests extends BaseTests {
         Logs.info("Haciendo click en el boton de login");
         driver.findElement(AppiumBy.accessibilityId("test-LOGIN")).click();
 
-        Logs.info("Espero que cargue la pagina de Shopping");
-        sleep(2000);
+//        Logs.info("Espero que cargue la pagina de Shopping");
+//        sleep(2000);
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void verifyPageTest() {
         Logs.info("Verificando la pagina de Shopping");
         final var titleProducts = driver.findElement(AppiumBy.androidUIAutomator("text(\"PRODUCTS\")"));
@@ -45,19 +45,19 @@ public class ShoppingTests extends BaseTests {
 
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void filterTest() {
         Logs.info("Hago click en el boton de filtro");
         driver.findElement(AppiumBy.accessibilityId("test-Modal Selector Button")).click();
 
-        Logs.info("Espero que cargue la pagina de opciones");
-        sleep(1000);
+//        Logs.info("Espero que cargue la pagina de opciones");
+//        sleep(1000);
 
         Logs.info("Selecciono la opcion price low to high");
         driver.findElement(AppiumBy.androidUIAutomator("text(\"Price (low to high)\")")).click();
 
-        Logs.info("Espero que se refresque la pagina");
-        sleep(1000);
+//        Logs.info("Espero que se refresque la pagina");
+//        sleep(1000);
 
         Logs.info("Verifico la información del 1er item");
         final var titulo = driver.findElements(AppiumBy.accessibilityId("test-Item title")).get(0).getText();

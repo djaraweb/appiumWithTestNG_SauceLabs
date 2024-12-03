@@ -10,11 +10,11 @@ public class LoginTests extends BaseTests {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        Logs.debug("Esperando que cargue la pagina");
-        sleep(1000);
+//        Logs.debug("Esperando que cargue la pagina");
+//        sleep(1000);
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void invalidCredentialsTest() {
         Logs.info("Escribiendo en el username input");
         driver.findElement(AppiumBy.accessibilityId("test-Username")).sendKeys("locked_out_user");
@@ -33,7 +33,7 @@ public class LoginTests extends BaseTests {
         softAssert.assertAll();
     }
 
-    @Test
+    @Test (groups = {regression,smoke})
     public void verifyPageTest() {
         Logs.info("Verificando pagina de Login");
         final var usernameInput = driver.findElement(AppiumBy.accessibilityId("test-Username"));
