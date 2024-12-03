@@ -1,0 +1,19 @@
+15:40:06.446 INFO  AUTOMATION - Comenzando la suite : Default Suite
+15:40:06.533 INFO  AUTOMATION - Inicializando el driver
+15:40:11.887 INFO  AUTOMATION - Guardando el driver en el DriverProvider
+15:40:11.955 INFO  AUTOMATION - Esperando por 1000 ms
+15:40:12.958 INFO  AUTOMATION - Escribiendo en el username input
+15:40:13.591 INFO  AUTOMATION - Escribiendo en el password input
+15:40:14.615 INFO  AUTOMATION - Haciendo click en el boton de login
+15:40:15.175 INFO  AUTOMATION - Espero que cargue la pagina de Shopping
+15:40:15.175 INFO  AUTOMATION - Esperando por 2000 ms
+15:40:17.180 INFO  AUTOMATION - Hago click en la 1era imagen
+15:40:17.294 INFO  AUTOMATION - Espero que cargue el detalle del item
+15:40:17.295 INFO  AUTOMATION - Esperando por 1000 ms
+15:40:18.303 INFO  AUTOMATION - START TEST: (verifyItemTest)
+15:40:18.317 INFO  AUTOMATION - Verificando la pagina de item details
+15:40:18.834 INFO  AUTOMATION - Tomando ScreenShot Allure
+15:40:18.839 INFO  AUTOMATION - TEST (verifyItemTest): PASSED!!
+
+15:40:18.842 INFO  AUTOMATION - Matando el driver
+15:40:19.060 INFO  AUTOMATION - Terminando la suite : Default Suite

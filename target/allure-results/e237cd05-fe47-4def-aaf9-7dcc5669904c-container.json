@@ -1,0 +1,1 @@
+{"uuid":"e237cd05-fe47-4def-aaf9-7dcc5669904c","name":"saucedemo.BurgerMenuTests.setUp","children":["b87562c6-240d-4a26-b327-11f57a088dbf"],"description":"","befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1732662313610,"stop":1732662320297}],"afters":[],"start":1732662313610,"stop":1732662320297}
