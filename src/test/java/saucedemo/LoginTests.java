@@ -1,9 +1,11 @@
 package saucedemo;
 
 import io.appium.java_client.AppiumBy;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utilities.BaseTests;
+import utilities.Gestures;
 import utilities.Logs;
 
 public class LoginTests extends BaseTests {
@@ -44,5 +46,19 @@ public class LoginTests extends BaseTests {
         softAssert.assertTrue(passwordInput.isDisplayed());
         softAssert.assertTrue(loginBtn.isDisplayed());
         softAssert.assertAll();
+    }
+
+    @Test (groups = {regression,smoke})
+    public void loginTabTest() {
+        Logs.info("Hacer tab en el label de standard_user");
+        Gestures.tab(driver.findElement(AppiumBy.androidUIAutomator("text(\"standard_user\")")));
+        Logs.info("Hacer tab en el boton de login");
+        Gestures.tab(driver.findElement(AppiumBy.accessibilityId("test-LOGIN")));
+
+        //Logs.info("Esperar que cargue la pagina de shopping");
+        //sleep(1500);
+
+        Logs.info("Verificar que estamos en la pagina de shopping");
+        Assert.assertTrue(driver.findElement(AppiumBy.accessibilityId("test-PRODUCTS")).isDisplayed());
     }
 }

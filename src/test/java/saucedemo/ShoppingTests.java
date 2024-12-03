@@ -1,9 +1,11 @@
 package saucedemo;
 
 import io.appium.java_client.AppiumBy;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utilities.BaseTests;
+import utilities.Gestures;
 import utilities.Logs;
 
 public class ShoppingTests extends BaseTests {
@@ -26,7 +28,7 @@ public class ShoppingTests extends BaseTests {
 //        sleep(2000);
     }
 
-    @Test (groups = {regression,smoke})
+    @Test(groups = {regression, smoke})
     public void verifyPageTest() {
         Logs.info("Verificando la pagina de Shopping");
         final var titleProducts = driver.findElement(AppiumBy.androidUIAutomator("text(\"PRODUCTS\")"));
@@ -45,7 +47,7 @@ public class ShoppingTests extends BaseTests {
 
     }
 
-    @Test (groups = {regression,smoke})
+    @Test(groups = {regression, smoke})
     public void filterTest() {
         Logs.info("Hago click en el boton de filtro");
         driver.findElement(AppiumBy.accessibilityId("test-Modal Selector Button")).click();
@@ -68,6 +70,25 @@ public class ShoppingTests extends BaseTests {
         softAssert.assertEquals(titulo, "Sauce Labs Onesie");
         softAssert.assertEquals(precioSinDolar, 7.99);
         softAssert.assertAll();
-        
+
+    }
+
+    @Test
+    public void dragShoppingTest() {
+        Logs.info("Activamos la vista vertical");
+        Gestures.tab(driver.findElement(AppiumBy.accessibilityId("test-Toggle")));
+
+        Logs.info("Esperando que se ponga en modo vertical");
+        sleep(1500);
+
+        Logs.info("Arrastramos el tercer elemento para agregarlo al carrito");
+        final var elementOrigin = driver.findElements(AppiumBy.accessibilityId("test-Drag Handle")).get(2);
+        final var elementDestiny = driver.findElement(AppiumBy.accessibilityId("test-Cart drop zone"));
+        Gestures.dragAndDrop(elementOrigin, elementDestiny);
+
+        Logs.info("Verificamos que haya 1 elemento en el carrito");
+        final var counter = driver.findElement(AppiumBy.androidUIAutomator("description(\"test-Cart\").childSelector(className(\"android.widget.TextView\"))"));
+        Assert.assertEquals(Integer.parseInt(counter.getText()), 1);
+
     }
 }
