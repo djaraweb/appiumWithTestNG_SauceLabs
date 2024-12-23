@@ -17,7 +17,7 @@ public class Gestures {
         return new DriverProvider().get();
     }
 
-    public static void tab(WebElement element) {
+    public static void tap(WebElement element) {
         final var centerPoint = getCenterPoint(element);
         final var sequence = new Sequence(pointer, 1); // creo la secuencia
 
@@ -46,38 +46,38 @@ public class Gestures {
         getDriver().perform(List.of(sequence)); // la aplico
     }
 
-    public static void doubleTab(WebElement element) {
+    public static void doubleTap(WebElement element) {
         final var centerPoint = getCenterPoint(element);
         final var sequence = new Sequence(pointer, 1); // creo la secuencia
 
+        // 1. Muevo el puntero hacia el centro del elemento
+        sequence.addAction(
+                pointer.createPointerMove(
+                        Duration.ZERO,
+                        PointerInput.Origin.viewport(),
+                        centerPoint
+                )
+        );
+
         for (var i = 0; i < 2; i++) {
-            // 1. Muevo el puntero hacia el centro del elemento
-            sequence.addAction(
-                    pointer.createPointerMove(
-                            Duration.ofMillis(1000),
-                            PointerInput.Origin.viewport(),
-                            centerPoint
-                    )
-            );
             // 2. Toco la pantalla del celular
             sequence.addAction(
                     pointer.createPointerDown(PointerInput.MouseButton.LEFT.asArg())
             );
-            //3. Agrego una breve pausa
-            sequence.addAction(
-                    new Pause(pointer, Duration.ofMillis(1000))
-            );
-
-            // 4. Dejo de tocar la pantalla del celular
+            // 3. Dejo de tocar la pantalla del celular
             sequence.addAction(
                     pointer.createPointerUp(PointerInput.MouseButton.LEFT.asArg())
+            );
+            // 4. Agrego una breve pausa
+            sequence.addAction(
+                    new Pause(pointer, Duration.ofMillis(200))
             );
         }
         // 5 Realizo las acciones
         getDriver().perform(List.of(sequence)); // la aplico
     }
 
-    public static void longTab(WebElement element) {
+    public static void longTap(WebElement element) {
         final var centerPoint = getCenterPoint(element);
         final var sequence = new Sequence(pointer, 1); // creo la secuencia
 
@@ -118,7 +118,7 @@ public class Gestures {
     public static void dragAndDrop(
             WebElement elementOrigin,
             WebElement elementDestiny
-    ){
+    ) {
         final var origincenterPoint = getCenterPoint(elementOrigin);
         final var destinycenterPoint = getCenterPoint(elementDestiny);
         final var sequence = new Sequence(pointer, 1); // creo la secuencia
@@ -164,5 +164,93 @@ public class Gestures {
         // 7 Realizo las acciones
         getDriver().perform(List.of(sequence)); // la aplico
 
+    }
+
+    private static void swipeGeneralPuntos(Point origin, Point destiny) {
+        Logs.debug("Haciendo swipe desde %s hasta %s", origin, destiny);
+        final var sequence = new Sequence(pointer, 1);
+
+        // 1. Muevo el puntero al elemento origen
+        sequence.addAction(
+                pointer.createPointerMove(
+                        Duration.ZERO,
+                        PointerInput.Origin.viewport(),
+                        origin
+                )
+        );
+        // 2. Tocamos la pantalla con el puntero
+        sequence.addAction(
+                pointer.createPointerDown(PointerInput.MouseButton.LEFT.asArg())
+        );
+
+        // 3. Agreamos una pausa
+        sequence.addAction(
+                new Pause(pointer, Duration.ofMillis(1000))
+        );
+
+        // 4. Muevo el puntero al elemento destino
+        sequence.addAction(
+                pointer.createPointerMove(
+                        Duration.ofMillis(1000),
+                        PointerInput.Origin.viewport(),
+                        destiny
+                )
+        );
+
+        // 5. Dejamos de tocar la pantalla
+        sequence.addAction(
+                pointer.createPointerUp(PointerInput.MouseButton.LEFT.asArg())
+        );
+
+        // 6. Ejecutamos las acciones
+        getDriver().perform(List.of(sequence));
+    }
+
+    private static Point getElementPointUsingPercentages(
+            double percentageX,
+            double percentageY,
+            WebElement element
+    ) {
+        final var location = element.getLocation();
+        final var size = element.getSize();
+
+        final var xDelta = (percentageX / 100) * size.getWidth();
+        final var yDelta = (percentageY / 100) * size.getHeight();
+
+        final var xPrima = (int) (location.getX() + xDelta);
+        final var yPrima = (int) (location.getY() + yDelta);
+
+        return new Point(xPrima, yPrima);
+    }
+
+    public static void swipe(
+            double percentageXInicial,
+            double percentageYInicial,
+            double percentageXFinal,
+            double percentageYFinal,
+            WebElement element
+    ) {
+        final var puntoInicial = getElementPointUsingPercentages(percentageXInicial, percentageYInicial, element);
+        final var puntoFinal = getElementPointUsingPercentages(percentageXFinal, percentageYFinal, element);
+
+        swipeGeneralPuntos(puntoInicial, puntoFinal);
+    }
+
+    public static void swipeHorizontal(
+            double percentageY,
+            double percentageXInicial,
+            double percentageXFinal,
+            WebElement element
+    ) {
+        swipe(percentageXInicial, percentageY, percentageXFinal, percentageY, element);
+    }
+
+    public static void swipeVertical(
+            double percentageX,
+            double percentageYInicial,
+            double percentageYFinal,
+            WebElement element
+    ) {
+        swipe(percentageX, percentageYInicial, percentageX, percentageYFinal, element);
     }
 }

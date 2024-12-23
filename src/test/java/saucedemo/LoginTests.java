@@ -16,7 +16,7 @@ public class LoginTests extends BaseTests {
 //        sleep(1000);
     }
 
-    @Test (groups = {regression,smoke})
+    @Test(groups = {regression, smoke})
     public void invalidCredentialsTest() {
         Logs.info("Escribiendo en el username input");
         driver.findElement(AppiumBy.accessibilityId("test-Username")).sendKeys("locked_out_user");
@@ -35,7 +35,7 @@ public class LoginTests extends BaseTests {
         softAssert.assertAll();
     }
 
-    @Test (groups = {regression,smoke})
+    @Test(groups = {regression, smoke})
     public void verifyPageTest() {
         Logs.info("Verificando pagina de Login");
         final var usernameInput = driver.findElement(AppiumBy.accessibilityId("test-Username"));
@@ -48,17 +48,46 @@ public class LoginTests extends BaseTests {
         softAssert.assertAll();
     }
 
-    @Test (groups = {regression,smoke})
+    @Test(groups = {regression, smoke})
     public void loginTabTest() {
         Logs.info("Hacer tab en el label de standard_user");
-        Gestures.tab(driver.findElement(AppiumBy.androidUIAutomator("text(\"standard_user\")")));
+        Gestures.tap(driver.findElement(AppiumBy.androidUIAutomator("text(\"standard_user\")")));
         Logs.info("Hacer tab en el boton de login");
-        Gestures.tab(driver.findElement(AppiumBy.accessibilityId("test-LOGIN")));
+        Gestures.tap(driver.findElement(AppiumBy.accessibilityId("test-LOGIN")));
 
         //Logs.info("Esperar que cargue la pagina de shopping");
         //sleep(1500);
 
         Logs.info("Verificar que estamos en la pagina de shopping");
         Assert.assertTrue(driver.findElement(AppiumBy.accessibilityId("test-PRODUCTS")).isDisplayed());
+    }
+
+    @Test(groups = {regression})
+    public void verifyLabelTest() {
+        Logs.info("haciendo swipe para ver los labels");
+        final var canvas = driver.findElement(AppiumBy.accessibilityId("test-Login"));
+        Gestures.swipeVertical(50, 50, 20, canvas);
+
+        Logs.info("Verificando los labels");
+        final var standardUserLabel = driver.findElement(
+                AppiumBy.androidUIAutomator("text(\"standard_user\")")
+        );
+        final var lockedOutUser = driver.findElement(
+                AppiumBy.androidUIAutomator("text(\"locked_out_user\")")
+        );
+
+        final var problemUser = driver.findElement(
+                AppiumBy.androidUIAutomator("text(\"problem_user\")")
+        );
+
+        final var secretSauceLabel = driver.findElement(
+                AppiumBy.androidUIAutomator("text(\"secret_sauce\")")
+        );
+
+        softAssert.assertTrue(standardUserLabel.isDisplayed());
+        softAssert.assertTrue(lockedOutUser.isDisplayed());
+        softAssert.assertTrue(problemUser.isDisplayed());
+        softAssert.assertTrue(secretSauceLabel.isDisplayed());
+        softAssert.assertAll();
     }
 }

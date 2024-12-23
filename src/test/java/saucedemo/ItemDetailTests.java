@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utilities.BaseTests;
+import utilities.Gestures;
 import utilities.Logs;
 
 public class ItemDetailTests extends BaseTests {
@@ -36,7 +37,7 @@ public class ItemDetailTests extends BaseTests {
 
     }
 
-    @Test (groups = {regression,smoke})
+    @Test(groups = {regression, smoke})
     public void verifyItemTest() {
         Logs.info("Verificando la pagina de item details");
         final var backProductsButton = driver.findElement(AppiumBy.accessibilityId("test-BACK TO PRODUCTS"));
@@ -55,9 +56,18 @@ public class ItemDetailTests extends BaseTests {
 
         softAssert.assertAll();
 
+        Logs.info("Hago Scroll de abajo hacia arriba");
+        final var canvas = driver.findElement(AppiumBy.androidUIAutomator("className(\"android.view.ViewGroup\").description(\"test-Inventory item page\")"));
+        Gestures.swipeVertical(50, 70, 30, canvas);
+
+        Logs.info("Verifico que el boton Add to Cart sea visible");
+        Assert.assertTrue(
+                driver.findElement(AppiumBy.accessibilityId("test-ADD TO CART")).isDisplayed()
+        );
+
     }
 
-    @Test (groups = {regression,smoke})
+    @Test(groups = {regression, smoke})
     public void backToProductsTest() {
         Logs.info("Hacer click en back to products");
         driver.findElement(AppiumBy.accessibilityId("test-BACK TO PRODUCTS")).click();
@@ -69,7 +79,7 @@ public class ItemDetailTests extends BaseTests {
         Assert.assertTrue(driver.findElement(AppiumBy.androidUIAutomator("text(\"PRODUCTS\")")).isDisplayed());
     }
 
-    @Test (groups = {regression,smoke})
+    @Test(groups = {regression, smoke})
     public void pressBackTest() {
         Logs.info("Presionar el boton atras del celular");
         driver.pressKey(new KeyEvent(AndroidKey.BACK));

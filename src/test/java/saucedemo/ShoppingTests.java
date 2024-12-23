@@ -76,7 +76,7 @@ public class ShoppingTests extends BaseTests {
     @Test
     public void dragShoppingTest() {
         Logs.info("Activamos la vista vertical");
-        Gestures.tab(driver.findElement(AppiumBy.accessibilityId("test-Toggle")));
+        Gestures.tap(driver.findElement(AppiumBy.accessibilityId("test-Toggle")));
 
         Logs.info("Esperando que se ponga en modo vertical");
         sleep(1500);
